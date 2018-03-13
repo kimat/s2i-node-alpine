@@ -1,0 +1,15 @@
+#!/bin/bash
+shopt -s dotglob
+echo "---> Installing application source ..."
+mv /tmp/src/* ./
+
+# will override dev node_modules with ones from previous build
+if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
+  echo "---> Restoring build artifacts && caches"
+  mv /tmp/artifacts/* ./
+fi
+
+
+echo "---> Building your node application from source ..."
+npm install  --poduction
+npm run build:prod
